@@ -9,11 +9,17 @@ import SwiftUI
 
 class QuotesViewModel: ObservableObject {
     
+    @Published var shouldConseal = false
     @Published var isLoading: Bool = false
     @Published var quotes: [Quote] = []
     
+    var shouldHideContent:Bool {
+        return shouldConseal || isLoading
+    }
+    
     //initialization with simulated "network" delay
     init() {
+        beginObserving()
         isLoading = true
         
         let simulatedRequestDelay = Double.random(in: 1..<3)
@@ -36,6 +42,19 @@ class QuotesViewModel: ObservableObject {
       }
     }
     
+    private func beginObserving() {
+        let center = NotificationCenter.default
+        center.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        center.addObserver(self, selector: #selector(appMovedToFourground), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
+    }
     
+    @objc func appMovedToBackground() {
+        shouldConseal = true
+    }
+    
+    @objc func appMovedToFourground() {
+        shouldConseal = false
+    }
 
 }

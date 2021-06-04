@@ -18,7 +18,7 @@ struct QoutesView: View {
                     ForEach(viewModel.quotes) { quote in
                         Row(quote: quote)
                     }
-                    .redacted(reason: viewModel.isLoading ? .placeholder : [])
+                    .redacted(reason: viewModel.shouldHideContent ? .placeholder : [])
                 }
                 .navigationTitle("Quotation")
             }
