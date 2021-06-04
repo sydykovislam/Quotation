@@ -22,7 +22,7 @@ class QuotesViewModel: ObservableObject {
             self.quotes = ModelLoader.bundledQuotes
         }
         
-        let simulatedIngestionDelay = Double.random(in: 1..<3)
+        let simulatedIngestionDelay = Double.random(in: 2..<4)
         
         delay(interval: simulatedIngestionDelay) {
             self.isLoading = false

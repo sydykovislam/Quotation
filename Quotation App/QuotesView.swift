@@ -40,6 +40,7 @@ struct Row: View {
               .resizable()
               .aspectRatio(nil, contentMode: .fit)
               .frame(width: 20)
+                .unredacted()
 
             VStack(alignment: .leading) {
               Text(quote.content)
